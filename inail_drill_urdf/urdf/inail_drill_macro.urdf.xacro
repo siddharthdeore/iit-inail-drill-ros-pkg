@@ -11,8 +11,14 @@
 
   <xacro:property name="mm2m" value="1e-3" />
   <xacro:property name="sqmm2sqm" value="1e-6" />
-  <material name="drill_dark_grey"> <color rgba="0.1 0.1 0.1 1"/> </material>
-  <material name="drill_silver"> <color rgba="0.7 0.7 0.7 0.8"/> </material>
+  
+  <material name="drill_dark_grey">
+    <color rgba="0.1 0.1 0.1 1"/>
+  </material>
+  
+  <material name="drill_silver">
+    <color rgba="0.7 0.7 0.7 0.8"/>
+  </material>
 
     <!-- Drill Base Link -->
     <link name="drill_base">
@@ -44,8 +50,8 @@
       <visual>
         <geometry>
           <mesh filename="package://inail_drill_urdf/meshes/drill_chuck.stl" scale = "0.001 0.001 0.001"/>
-          <material name="drill_dark_grey"/>
         </geometry>
+        <material name="drill_dark_grey"/>
       </visual>
       <collision>
         <geometry>
