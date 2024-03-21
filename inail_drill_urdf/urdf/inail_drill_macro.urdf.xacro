@@ -1,0 +1,81 @@
+<?xml version="1.0"?>
+
+<!-- 
+    @author: 	Siddharth Deore
+    @email:     siddharth.deore@iit.it
+    @license:   MIT License
+ -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <xacro:macro name="inail_drill" params="parent_link *origin">
+
+  <xacro:property name="mm2m" value="1e-3" />
+  <xacro:property name="sqmm2sqm" value="1e-6" />
+  <material name="drill_dark_grey"> <color rgba="0.1 0.1 0.1 1"/> </material>
+  <material name="drill_silver"> <color rgba="0.7 0.7 0.7 0.8"/> </material>
+
+    <!-- Drill Base Link -->
+    <link name="drill_base">
+      <visual>
+        <geometry>
+          <mesh filename="package://inail_drill_urdf/meshes/drill_base.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+        <material name="drill_silver"/>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://inail_drill_urdf/meshes/drill_base_simple.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="1.9031725" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="${9.0972194*sqmm2sqm}"
+                 ixy="${-1.9337761*sqmm2sqm}"
+                 ixz="${-1.8200073*sqmm2sqm}"
+                 iyy="${9.1191648*sqmm2sqm}"
+                 iyz="${2.9051042*sqmm2sqm}"
+                 izz="${2.5246513*sqmm2sqm}" />
+      </inertial>
+    </link>
+
+    <!-- Drill Chuck Link -->
+    <link name="drill_chuck">
+      <visual>
+        <geometry>
+          <mesh filename="package://inail_drill_urdf/meshes/drill_chuck.stl" scale = "0.001 0.001 0.001"/>
+          <material name="drill_dark_grey"/>
+        </geometry>
+      </visual>
+      <collision>
+        <geometry>
+          <mesh filename="package://inail_drill_urdf/meshes/drill_chuck_simple.stl" scale = "0.001 0.001 0.001"/>
+        </geometry>
+      </collision>
+      <inertial>
+        <mass value="0.44119789" />
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <inertia ixx="${1.3584403*sqmm2sqm}" ixy="0.0" ixz="0.0" iyy="${1.3584419*sqmm2sqm}" iyz="0.0" izz="${9.8715876*sqmm2sqm}" />
+      </inertial>
+    </link>
+
+    <!-- Joint between parent and drill base -->
+    <joint name="${parent_link}_to_drill_base" type="fixed">
+      <xacro:insert_block name="origin"/>
+      <parent link="${parent_link}"/>
+      <child link="drill_base"/>
+    </joint>
+
+
+    <!-- Joint between drill base and drill chuck -->
+    <joint name="drill_joint" type="continuous">
+      <parent link="drill_base"/>
+      <child link="drill_chuck"/>
+      <origin xyz="0 0 ${188.5*mm2m}" rpy="0 0 0"/>
+      <axis xyz="0 0 1"/>
+      <limit velocity="1000.0" effort="30.0"/>
+    </joint>
+
+  </xacro:macro>
+
+</robot>

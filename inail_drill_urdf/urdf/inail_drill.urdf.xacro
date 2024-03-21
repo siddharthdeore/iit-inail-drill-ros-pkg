@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="inail_drill_urdf">
+
+  <xacro:include filename="$(find inail_drill_urdf)/urdf/inail_drill_macro.urdf.xacro" />
+  
+  
+  <link name="world"/>
+  
+  <xacro:inail_drill parent_link="world">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:inail_drill>
+
+</robot>
