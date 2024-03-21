@@ -13,11 +13,11 @@
   <xacro:property name="sqmm2sqm" value="1e-6" />
   
   <material name="drill_dark_grey">
-    <color rgba="0.1 0.1 0.1 1"/>
+    <color rgba="0.3 0.3 0.3 1"/>
   </material>
   
   <material name="drill_silver">
-    <color rgba="0.7 0.7 0.7 0.8"/>
+    <color rgba="0.6 0.6 0.7 1.0"/>
   </material>
 
     <!-- Drill Base Link -->
@@ -74,12 +74,12 @@
 
 
     <!-- Joint between drill base and drill chuck -->
-    <joint name="drill_joint" type="continuous">
+    <joint name="inail_drill_motor" type="continuous">
       <parent link="drill_base"/>
       <child link="drill_chuck"/>
       <origin xyz="0 0 ${188.5*mm2m}" rpy="0 0 0"/>
       <axis xyz="0 0 1"/>
-      <limit velocity="1000.0" effort="30.0"/>
+      <limit velocity="100.0" effort="30.0"/>
     </joint>
 
   </xacro:macro>
